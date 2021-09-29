@@ -42,6 +42,12 @@
 	path = tools/tblCRCTool
 	url = https://github.com/nasa/tblCRCTool.git
   branch = main
-[submodule "apps/send_vector3_app"]
-	path = apps/send_vector3_app
-	url = git@github.com:benjaminung/send_vector3_app.git
+[submodule "apps/vec_app"]
+	path = apps/vec_app
+	url = git@github.com:benjaminung/vec_app.git
+[submodule "apps/ros_app"]
+	path = apps/ros_app
+	url = git@github.com:benjaminung/ros_app.git
+[submodule "libs/ros_lib"]
+	path = libs/ros_lib
+	url = git@github.com:benjaminung/ros_lib.git
