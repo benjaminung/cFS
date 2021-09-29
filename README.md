@@ -3,6 +3,69 @@
 [![LGTM Grade](https://img.shields.io/lgtm/grade/python/github/nasa/cFS)](https://lgtm.com/projects/g/nasa/cFS/alerts/?mode=list)
 [![LGTM Grade](https://img.shields.io/lgtm/grade/cpp/github/nasa/cFS)](https://lgtm.com/projects/g/nasa/cFS/alerts/?mode=list)
 
+# cFS/ROS communication
+## Setup
+- clone this repo
+  ```
+  git clone https://github.com/benjaminung/cFS
+  ```
+- setup the submodules
+  ```
+  git submodule init
+  git submodule update
+  ```
+- install ROS, if you haven't already
+- copy the sample_vectorsub ros package to your ROS catkin workspace
+  ```
+  EXAMPLE: 
+  cp -r ros_pkgs/sample_vectorsub ~/catkin_ws/src/sample_vectorsub
+  ```
+- change to your catkin workspace directory 
+  ```
+  EXAMPLE:
+  cd ~/catkin_ws
+  ```
+- setup your ROS environment
+  ```
+  EXAMPLE:
+  source /opt/ros/noetic/setup.bash
+  ```
+- run catkin_make to build the sample_vectorsub package
+  ```
+  catkin_make
+  ```
+- start roscore
+  ```
+  roscore
+  ```
+- open a new terminal, and setup source setup file in workspace
+  ```
+  source devel/setup.bash
+  ```
+- run the sample_vectorsub node
+  ```
+  rosrun sample_vectorsub sample_vectorsub
+  ```
+- now we will build our cFS apps
+- open a new terminal, and go to the directory where you cloned the cFS repo
+  ```
+  EXAMPLE:
+  cd ~/cFS
+  ```
+- move some dirs/files to build cFS
+  ```
+  cp -r cfe/cmake/sample_defs sample_defs
+  cp cfe/cmake/Makefile.sample Makefile
+  ```
+- To prep, compile, and run on the host:
+  ```
+  make SIMULATION=native prep
+  make
+  make install
+  cd build/exe/cpu1/
+  ./core-cpu1
+  ```
+
 # Core Flight System - BUNDLE
 
 The Core Flight System (cFS) is a generic flight software architecture framework used on flagship spacecraft, human spacecraft, cubesats, and Raspberry Pi.  This repository is a bundle of submodules that make up the cFS framework.  Note the "lab" apps are intended as examples only, and enable this bundle to build, execute, receive commands, and send telemetry.  This is not a flight distribution, which is typically made up of the cFE, OSAL, PSP, and a selection of flight apps that correspond to specific mission requirements.
