@@ -19,3 +19,6 @@
 [submodule "libs/ros_lib"]
 	path = libs/ros_lib
 	url = git@github.com:benjaminung/ros_lib.git
+[submodule "ros_pkgs/sample_vectorsub"]
+	path = ros_pkgs/sample_vectorsub
+	url = git@github.com:benjaminung/ros_sample_vectorsub.git
