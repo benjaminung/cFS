@@ -9,54 +9,82 @@
   ```
   git clone https://github.com/benjaminung/cFS
   ```
+
 - setup the submodules
   ```
   git submodule init
   git submodule update
   ```
+
 - install ROS, if you haven't already
-- copy the sample_vectorsub ros package to your ROS catkin workspace
+
+- copy the sample_vectorsub and sample_vectorpub ros package to your ROS catkin workspace
   ```
   EXAMPLE: 
   cp -r ros_pkgs/sample_vectorsub ~/catkin_ws/src/sample_vectorsub
+  cp -r ros_pkgs/sample_vectorpub ~/catkin_ws/src/sample_vectorpub
   ```
+
 - change to your catkin workspace directory 
   ```
   EXAMPLE:
   cd ~/catkin_ws
   ```
+
 - setup your ROS environment
   ```
   EXAMPLE:
   source /opt/ros/noetic/setup.bash
   ```
+
 - run catkin_make to build the sample_vectorsub package
   ```
   catkin_make
   ```
+
 - start roscore
   ```
   roscore
   ```
+
 - open a new terminal, and setup source setup file in workspace
   ```
   source devel/setup.bash
   ```
+  
 - run the sample_vectorsub node
   ```
   rosrun sample_vectorsub sample_vectorsub
   ```
+
 - now we will build our cFS apps
+
 - open a new terminal, and go to the directory where you cloned the cFS repo
   ```
   EXAMPLE:
   cd ~/cFS
   ```
+
+- you need to have your ROS library path in the LD_LIBRARY_PATH environment variable
+  ```
+  EXAMPLE:
+  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/opt/ros/noetic/lib
+  ```
+  or sourcing the ROS setup script will add it as well
+  ```
+  source /opt/ros/noetic/setup.bash
+  ```
+
+- if your ROS installation isn't in the location above, change the commands to the right location
+  + you will also need to change the `/opt/ros/noetic` in `target_include_directories` and `target_link_directories` in the ros_lib CMakeLists.txt file as well
+
+
 - move some dirs/files to build cFS
   ```
   cp -r cfe/cmake/sample_defs sample_defs
   cp cfe/cmake/Makefile.sample Makefile
   ```
+
 - To prep, compile, and run on the host:
   ```
   make SIMULATION=native prep
@@ -64,6 +92,38 @@
   make install
   cd build/exe/cpu1/
   ./core-cpu1
+  ```
+
+- You should see 3 lines every 2 seconds in the cFS terminal:
+
+  + vec_app outputs a statement that it sent a message
+
+  + ros_app outputs a statement that it received the message sent by vec_app; the vector components in the message are also displayed
+
+  + ros_lib outputs a statement that it sent a ROS vector; the vector components are also displayed they should be the same as the above statement
+
+- The ROS terminal running sample_vectorsub should also be displaying that it received data with the same numbers in the cFS terminal
+
+- The VEC_APP only sends 10 messages (one every 2 seconds).
+
+- Once the VEC_APP is done sending messages, run the ROS sample_vectorpub node (you can kill sample_vectorpub with ctrl+c and run it in the same terminal)
+  ```
+  rosrun sample_vectorpub sample_vectorpub
+  ```
+
+- This time, you should see 3 lines every second in the cFS terminal:
+
+  + ros_lib outputs a statement that it received data from ROS
+
+  + ros_app outputs a statement that it send a packet to the software bus
+
+  + vec_app outputs a statement that it received a message
+
+- The terminal running sample_vectorpub should display a message every second that it is publishing the vector msg
+
+- If ctrl+c won't kill the cFS process, you need to open a new terminal and:
+  ```
+  pkill core-cpu1
   ```
 
 # Core Flight System - BUNDLE

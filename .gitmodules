@@ -28,3 +28,9 @@
 [submodule "tools/cFS-GroundSystem"]
 	path = tools/cFS-GroundSystem
 	url = https://github.com/nasa/cFS-GroundSystem.git
+[submodule "ros_pkgs/sample_vector"]
+	path = ros_pkgs/sample_vector
+	url = git@github.com:benjaminung/ros_sample_vectorpub.git
+[submodule "ros_pkgs/sample_vectorpub"]
+	path = ros_pkgs/sample_vectorpub
+	url = git@github.com:benjaminung/ros_sample_vectorpub.git
